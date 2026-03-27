@@ -5,9 +5,9 @@ export interface SiteContent {
   pageTitle: string;
   nav: {
     features: string;
-    modules: string;
-    stack: string;
-    start: string;
+    screenshots: string;
+    download: string;
+    faq: string;
     github: string;
   };
   switchers: {
@@ -20,6 +20,7 @@ export interface SiteContent {
     subtitle: string;
     primary: string;
     secondary: string;
+    note: string;
   };
   highlights: Array<{ label: string; value: string }>;
   featureSection: {
@@ -27,35 +28,59 @@ export interface SiteContent {
     title: string;
     cards: Array<{ title: string; desc: string }>;
   };
-  moduleSection: {
+  screenshotSection: {
     badge: string;
     title: string;
-    modules: Array<{ name: string; desc: string; points: string[] }>;
+    subtitle: string;
+    previous: string;
+    next: string;
+    slides: Array<{
+      title: string;
+      caption: string;
+      tags: string[];
+      points: string[];
+    }>;
   };
-  detailSection: {
+  downloadSection: {
     badge: string;
     title: string;
-    doctorTitle: string;
-    doctorItems: string[];
-    toolTitle: string;
-    toolItems: string[];
-    initTitle: string;
-    initItems: string[];
+    subtitle: string;
+    versionLabel: string;
+    versionValue: string;
+    cards: Array<{
+      platform: string;
+      desc: string;
+      action: string;
+    }>;
+    extras: Array<{
+      title: string;
+      desc: string;
+      action: string;
+    }>;
   };
-  stackSection: {
+  releaseSection: {
+    badge: string;
+    title: string;
+    subtitle: string;
+    latestLabel: string;
+    items: Array<{
+      version: string;
+      date: string;
+      summary: string;
+    }>;
+    action: string;
+  };
+  techSection: {
     badge: string;
     title: string;
     subtitle: string;
     stacks: string[];
-    commandsTitle: string;
-    devTitle: string;
-    buildTitle: string;
-    releaseTitle: string;
-    devCommand: string;
-    buildCommand: string;
-    releaseCommand: string;
-    statusTitle: string;
-    statusBody: string;
+    advantages: Array<{ title: string; desc: string }>;
+  };
+  faqSection: {
+    badge: string;
+    title: string;
+    items: Array<{ q: string; a: string }>;
   };
   cta: {
     title: string;
@@ -69,12 +94,12 @@ export interface SiteContent {
 export const content: Record<Locale, SiteContent> = {
   zh: {
     htmlLang: "zh-CN",
-    pageTitle: "Envra 官网 | 开发环境管理桌面应用",
+    pageTitle: "Envra 官网 | 下载与安装",
     nav: {
-      features: "核心能力",
-      modules: "模块详情",
-      stack: "技术栈",
-      start: "快速开始",
+      features: "产品能力",
+      screenshots: "功能截图",
+      download: "下载",
+      faq: "常见问题",
       github: "GitHub",
     },
     switchers: {
@@ -82,155 +107,215 @@ export const content: Record<Locale, SiteContent> = {
       theme: "切换主题",
     },
     hero: {
-      badge: "Envra · Developer Environment Manager",
-      title: "把开发环境诊断、修复与初始化，集中到一个桌面应用。",
+      badge: "Envra · 桌面开发环境管理工具",
+      title: "下载安装后即可使用的开发环境助手。",
       subtitle:
-        "Envra 基于 Tauri + React 构建，覆盖环境健康检查、工具管理、项目初始化与个性化设置，帮助开发者更快搭建稳定的本地开发环境。",
-      primary: "查看 GitHub 项目",
-      secondary: "了解功能细节",
+        "Envra 面向实际开发场景，提供环境诊断、工具管理、项目初始化和偏好设置，让新机器和新成员更快进入可工作状态。",
+      primary: "立即下载",
+      secondary: "查看版本日志",
+      note: "支持 macOS / Linux / Windows，当前版本 v0.1.5",
     },
     highlights: [
-      { label: "核心页面", value: "5" },
-      { label: "环境检查项", value: "8" },
-      { label: "语言与主题", value: "双语 + 明暗" },
-      { label: "发布目标", value: "macOS / Linux / Windows" },
+      { label: "开箱页面", value: "5 大模块" },
+      { label: "环境检查", value: "8 项核心诊断" },
+      { label: "界面体验", value: "中英双语 + 主题切换" },
+      { label: "定位", value: "面向下载使用者" },
     ],
     featureSection: {
-      badge: "真实能力",
-      title: "官网内容已与 Envra 当前代码实现对齐",
+      badge: "产品能力",
+      title: "安装后就能直接带来效率提升的核心功能",
       cards: [
         {
-          title: "环境健康仪表盘",
-          desc: "汇总系统信息、健康分、分类通过率与待处理问题，并提供直达操作入口。",
+          title: "环境健康概览",
+          desc: "用仪表盘快速看到机器状态、问题数量与关键入口，减少排查盲区。",
         },
         {
           title: "Environment Doctor",
-          desc: "扫描 Node、npm、pnpm、yarn、Git、SSH、Git 配置，支持针对可修复项一键处理。",
+          desc: "扫描 Node / npm / pnpm / yarn / Git / SSH / Git 配置，并支持可修复项一键处理。",
         },
         {
           title: "工具管理",
-          desc: "展示已安装与可安装工具，支持通过 npm 执行 pnpm/yarn 安装、更新与卸载。",
+          desc: "已安装与可安装工具分区展示，统一进行安装、更新、卸载操作。",
         },
         {
           title: "项目初始化",
-          desc: "支持 React TS、Vue TS、Next.js、Node TS 模板，选择 Node 版本、包管理器并可选初始化 Git。",
+          desc: "快速创建 React TS、Vue TS、Next.js、Node TS 项目，减少重复脚手架流程。",
         },
         {
-          title: "设置中心",
-          desc: "可配置主题、语言、镜像源、安装路径、代理，并通过 Zustand 持久化设置。",
+          title: "偏好设置持久化",
+          desc: "主题、语言、镜像源、安装路径、代理等设置持久保存，下次打开延续使用习惯。",
         },
         {
-          title: "跨平台桌面端",
-          desc: "基于 Tauri 2，具备本地命令调用能力，可构建多平台安装包。",
+          title: "跨平台桌面应用",
+          desc: "采用 Tauri 架构，提供接近原生的资源占用与启动体验。",
         },
       ],
     },
-    moduleSection: {
-      badge: "模块拆解",
-      title: "围绕真实开发流程设计的 4 个关键工作区",
-      modules: [
+    screenshotSection: {
+      badge: "功能截图",
+      title: "核心流程一屏可见",
+      subtitle: "轮播展示 Envra 的主要工作界面与信息结构。",
+      previous: "上一张",
+      next: "下一张",
+      slides: [
         {
-          name: "1. Dashboard 仪表盘",
-          desc: "先看全局，再进入操作。",
+          title: "Dashboard",
+          caption: "查看健康分、待处理问题与快捷入口。",
+          tags: ["Health Score", "Quick Actions", "System Info"],
           points: [
-            "聚合环境健康分与异常项",
-            "显示系统版本、架构与关键状态",
-            "一键跳转诊断、工具管理、项目初始化、设置",
+            "集中展示环境风险与优先级",
+            "一键跳转诊断和工具管理",
+            "帮助团队统一排障入口",
           ],
         },
         {
-          name: "2. Environment Doctor",
-          desc: "快速发现并修复环境问题。",
+          title: "Environment Doctor",
+          caption: "诊断并修复本地开发环境常见问题。",
+          tags: ["Scan", "Fix", "Runtime Checks"],
           points: [
-            "分类展示 runtime/packageManager/versionControl/authentication/gitConfig",
-            "对 pnpm、yarn 缺失项执行自动修复",
-            "支持补全 Git user.name / user.email",
+            "分类查看 runtime / package / git 等状态",
+            "支持 pnpm 与 yarn 缺失修复",
+            "支持补全 Git 用户配置",
           ],
         },
         {
-          name: "3. Tool Manager + Project Init",
-          desc: "工具与脚手架在一个流程里完成。",
+          title: "Tool Manager",
+          caption: "按状态管理工具安装与更新。",
+          tags: ["Installed", "Available", "Update"],
           points: [
-            "安装页区分 Installed / Available",
-            "脚手架支持模板、Node 版本、包管理器与 Git 初始化",
-            "创建结果返回项目绝对路径",
+            "区分已安装与可安装工具",
+            "展示当前版本与可更新状态",
+            "统一执行安装与更新动作",
           ],
         },
         {
-          name: "4. Settings",
-          desc: "把常用偏好固定下来。",
+          title: "Project Init",
+          caption: "新项目创建流程标准化。",
+          tags: ["Templates", "Node Version", "Git Init"],
           points: [
-            "主题切换（light / dark）",
-            "语言切换（zh / en）",
-            "镜像源、安装路径、代理参数统一管理",
+            "提供常用模板快速选择",
+            "可选包管理器与 Node 版本",
+            "创建后返回项目路径结果",
           ],
         },
       ],
     },
-    detailSection: {
-      badge: "能力细节",
-      title: "可执行动作与检查项一目了然",
-      doctorTitle: "Environment Doctor 检查项",
-      doctorItems: [
-        "Node.js / npm / pnpm / yarn 版本与可用性",
-        "Git 是否安装",
-        "SSH 密钥是否存在（~/.ssh/id_ed25519 或 id_rsa）",
-        "Git user.name 与 user.email 全局配置",
+    downloadSection: {
+      badge: "下载与安装",
+      title: "按你的系统直接下载安装",
+      subtitle: "推荐从 GitHub Releases 获取最新稳定构建。",
+      versionLabel: "最新版本",
+      versionValue: "v0.1.5",
+      cards: [
+        {
+          platform: "macOS",
+          desc: "适合 Apple Silicon / Intel 设备，推荐下载 dmg 包安装。",
+          action: "下载 macOS 版本",
+        },
+        {
+          platform: "Windows",
+          desc: "提供 Windows 安装包，适合团队统一分发与本地安装。",
+          action: "下载 Windows 版本",
+        },
+        {
+          platform: "Linux",
+          desc: "提供 Linux 发行包，适合开发机与服务器桌面环境。",
+          action: "下载 Linux 版本",
+        },
       ],
-      toolTitle: "Tool Manager 动作",
-      toolItems: [
-        "pnpm: install / update / uninstall",
-        "yarn: install / update / uninstall",
-        "npm: update",
-        "Node.js 与 Git 当前为只读展示（非一键托管）",
-      ],
-      initTitle: "Project Init 支持",
-      initItems: [
-        "模板: react-ts / vue-ts / next / node-ts",
-        "包管理器: npm / pnpm / yarn",
-        "可选初始化 Git 仓库",
-        "默认项目目录: ~/Projects（可在设置中修改）",
+      extras: [
+        {
+          title: "版本日志",
+          desc: "查看每个版本的更新内容与修复说明。",
+          action: "打开 Releases",
+        },
+        {
+          title: "中文文档",
+          desc: "查看项目说明、注意事项与安装建议。",
+          action: "查看 README",
+        },
       ],
     },
-    stackSection: {
-      badge: "技术与发布",
-      title: "桌面端工程化栈与交付流程",
-      subtitle: "与 Envra 主仓库一致",
-      stacks: [
-        "Tauri 2",
-        "React 19",
-        "Vite 7",
-        "Tailwind CSS v4",
-        "shadcn/ui",
-        "TypeScript",
-        "Zustand",
+    releaseSection: {
+      badge: "版本日志入口",
+      title: "更新内容透明可查",
+      subtitle: "保持升级可预期，部署和团队同步更安心。",
+      latestLabel: "最新",
+      items: [
+        {
+          version: "v0.1.5",
+          date: "2026-03",
+          summary: "当前官网对应版本，包含完整核心页面与双语/主题能力。",
+        },
       ],
-      commandsTitle: "常用命令",
-      devTitle: "本地开发",
-      buildTitle: "本地打包",
-      releaseTitle: "发布示例",
-      devCommand: "npm install\nnpm run tauri dev",
-      buildCommand: "npm run tauri build",
-      releaseCommand: "git tag v0.1.5\ngit push origin v0.1.5",
-      statusTitle: "当前状态",
-      statusBody: "Envra 目前处于前端原型阶段，部分页面数据仍为演示数据（mock）。",
+      action: "查看完整版本记录",
+    },
+    techSection: {
+      badge: "基础技术",
+      title: "工程基础清晰，性能体验更友好",
+      subtitle: "技术选型服务于安装用户体验，而不是展示复杂源码流程。",
+      stacks: ["Tauri 2", "React 19", "Vite 7", "TypeScript", "Zustand"],
+      advantages: [
+        {
+          title: "更轻量的桌面运行时",
+          desc: "基于系统 WebView 的 Tauri 架构，通常能减少安装体积与内存压力。",
+        },
+        {
+          title: "启动与交互响应更快",
+          desc: "Vite + React 组合让前端渲染与页面切换保持流畅，减少等待感。",
+        },
+        {
+          title: "跨平台发布路径统一",
+          desc: "同一套产品逻辑可构建 macOS/Linux/Windows 版本，降低维护分叉成本。",
+        },
+        {
+          title: "可持续迭代",
+          desc: "TypeScript 与模块化结构提升可维护性，方便后续增加真实系统检测能力。",
+        },
+      ],
+    },
+    faqSection: {
+      badge: "FAQ",
+      title: "下载安装前后常见问题",
+      items: [
+        {
+          q: "Envra 适合谁使用？",
+          a: "适合个人开发者、小团队和新成员入职场景，用于快速搭建与诊断本地开发环境。",
+        },
+        {
+          q: "必须从源码运行吗？",
+          a: "不需要。官网定位是下载安装直接使用，推荐从 Releases 下载对应系统安装包。",
+        },
+        {
+          q: "现在数据都是真实的吗？",
+          a: "当前版本仍有部分页面使用演示数据，但核心结构与操作流程已可体验。",
+        },
+        {
+          q: "是否支持中英文和主题切换？",
+          a: "支持。应用内与官网都提供中英文切换及明暗主题切换。",
+        },
+        {
+          q: "如何获取更新？",
+          a: "关注 GitHub Releases 页面，下载最新版本并查看更新日志。",
+        },
+      ],
     },
     cta: {
-      title: "开始使用 Envra",
-      subtitle: "在本地快速搭建更稳定的开发环境与初始化流程。",
-      primary: "打开 GitHub 仓库",
-      secondary: "查看中文文档",
+      title: "准备开始使用 Envra？",
+      subtitle: "下载最新版本，5 分钟内完成安装并开始你的环境诊断流程。",
+      primary: "下载最新版本",
+      secondary: "查看 GitHub 项目",
     },
-    footer: "© 2026 Envra. Build Better Dev Environments.",
+    footer: "© 2026 Envra. Made for Developers Who Ship.",
   },
   en: {
     htmlLang: "en",
-    pageTitle: "Envra Official Site | Developer Environment Manager",
+    pageTitle: "Envra Official Site | Download & Install",
     nav: {
-      features: "Capabilities",
-      modules: "Modules",
-      stack: "Tech Stack",
-      start: "Quick Start",
+      features: "Features",
+      screenshots: "Screenshots",
+      download: "Download",
+      faq: "FAQ",
       github: "GitHub",
     },
     switchers: {
@@ -238,145 +323,205 @@ export const content: Record<Locale, SiteContent> = {
       theme: "Switch theme",
     },
     hero: {
-      badge: "Envra · Developer Environment Manager",
-      title: "Diagnose, fix, and bootstrap your dev environment in one desktop app.",
+      badge: "Envra · Desktop Dev Environment Assistant",
+      title: "Download once and start managing your dev environment immediately.",
       subtitle:
-        "Built with Tauri + React, Envra combines environment health checks, tool management, project scaffolding, and persistent developer preferences.",
-      primary: "View on GitHub",
-      secondary: "Explore Features",
+        "Envra focuses on practical local setup workflows: diagnostics, tool management, project scaffolding, and persistent preferences for daily development.",
+      primary: "Download Now",
+      secondary: "View Release Notes",
+      note: "Available on macOS / Linux / Windows, current version v0.1.5",
     },
     highlights: [
-      { label: "Core Pages", value: "5" },
-      { label: "Diagnostic Checks", value: "8" },
-      { label: "Language & Theme", value: "Bilingual + Light/Dark" },
-      { label: "Release Targets", value: "macOS / Linux / Windows" },
+      { label: "Built-in Areas", value: "5 modules" },
+      { label: "Health Checks", value: "8 core checks" },
+      { label: "UX", value: "Bilingual + Theme Switch" },
+      { label: "Positioning", value: "Built for end users" },
     ],
     featureSection: {
-      badge: "Implemented Features",
-      title: "The site now matches Envra's actual code-level capabilities",
+      badge: "Core Product Value",
+      title: "What improves your workflow right after installation",
       cards: [
         {
-          title: "Environment Dashboard",
-          desc: "Aggregates health score, system info, category pass rates, and actionable issues.",
+          title: "Environment Overview",
+          desc: "A clear dashboard for health score, pending issues, and key action entry points.",
         },
         {
           title: "Environment Doctor",
-          desc: "Scans Node, npm, pnpm, yarn, Git, SSH, and Git config; supports one-click fixes where possible.",
+          desc: "Scans Node/npm/pnpm/yarn/Git/SSH/Git config and supports one-click fixes where available.",
         },
         {
           title: "Tool Manager",
-          desc: "Lists installed and available tools with npm-driven install/update/uninstall actions.",
+          desc: "Manages installed and available tools with unified install/update/uninstall operations.",
         },
         {
           title: "Project Init",
-          desc: "Supports React TS, Vue TS, Next.js, and Node TS templates with Node/PM options.",
+          desc: "Scaffold React TS, Vue TS, Next.js, or Node TS projects with standard setup options.",
         },
         {
-          title: "Settings Center",
-          desc: "Theme, language, registry mirror, install path, and proxy with persisted state via Zustand.",
+          title: "Persistent Settings",
+          desc: "Theme, language, registry mirror, install path, and proxy preferences are preserved.",
         },
         {
           title: "Cross-platform Desktop",
-          desc: "Powered by Tauri 2 with native command execution and multi-platform packaging.",
+          desc: "Tauri-based architecture provides a desktop experience with efficient resource usage.",
         },
       ],
     },
-    moduleSection: {
-      badge: "Workflow",
-      title: "Four work areas aligned with real developer setup flows",
-      modules: [
+    screenshotSection: {
+      badge: "Screenshots",
+      title: "Main workflows at a glance",
+      subtitle: "Carousel preview of Envra's core product interfaces.",
+      previous: "Previous",
+      next: "Next",
+      slides: [
         {
-          name: "1. Dashboard",
-          desc: "See global status first, then drill into actions.",
+          title: "Dashboard",
+          caption: "Track environment health and jump to the next action fast.",
+          tags: ["Health Score", "Quick Actions", "System Info"],
           points: [
-            "Health score and issue aggregation",
-            "OS/version/arch and critical status indicators",
-            "Fast entry to doctor, tools, init, and settings",
+            "Aggregates key risks in one view",
+            "Direct links to Doctor and Tool Manager",
+            "Useful as a team troubleshooting start point",
           ],
         },
         {
-          name: "2. Environment Doctor",
-          desc: "Find and resolve setup problems quickly.",
+          title: "Environment Doctor",
+          caption: "Diagnose and resolve common local setup issues.",
+          tags: ["Scan", "Fix", "Runtime Checks"],
           points: [
-            "Grouped checks for runtime/package/auth/git config",
+            "Grouped runtime/package/git checks",
             "Auto-fix for missing pnpm/yarn",
-            "Prompts for Git user.name and user.email",
+            "Prompts for Git identity setup",
           ],
         },
         {
-          name: "3. Tool Manager + Project Init",
-          desc: "Manage dependencies and scaffold projects in one flow.",
+          title: "Tool Manager",
+          caption: "Handle installations and updates by status.",
+          tags: ["Installed", "Available", "Update"],
           points: [
-            "Installed/Available tool split",
-            "Template + Node + package manager + optional git init",
-            "Returns the created project's absolute path",
+            "Split view for installed vs available tools",
+            "Version and update state visibility",
+            "Unified install/update workflow",
           ],
         },
         {
-          name: "4. Settings",
-          desc: "Keep team or personal defaults consistent.",
+          title: "Project Init",
+          caption: "Standardize new project creation steps.",
+          tags: ["Templates", "Node Version", "Git Init"],
           points: [
-            "Theme switching (light/dark)",
-            "Language switching (zh/en)",
-            "Registry mirror, install path, and proxy management",
+            "Quick pick common templates",
+            "Choose package manager and Node version",
+            "Returns created project path clearly",
           ],
         },
       ],
     },
-    detailSection: {
-      badge: "Action Matrix",
-      title: "Concrete checks and executable actions",
-      doctorTitle: "Environment Doctor Checks",
-      doctorItems: [
-        "Node.js / npm / pnpm / yarn version & availability",
-        "Git installation status",
-        "SSH key presence (~/.ssh/id_ed25519 or id_rsa)",
-        "Global Git user.name and user.email",
+    downloadSection: {
+      badge: "Download",
+      title: "Get the right package for your platform",
+      subtitle: "We recommend downloading from GitHub Releases for the latest stable build.",
+      versionLabel: "Latest Version",
+      versionValue: "v0.1.5",
+      cards: [
+        {
+          platform: "macOS",
+          desc: "For Apple Silicon and Intel devices, with a desktop installation package.",
+          action: "Download for macOS",
+        },
+        {
+          platform: "Windows",
+          desc: "Windows installer package for easy local or team deployment.",
+          action: "Download for Windows",
+        },
+        {
+          platform: "Linux",
+          desc: "Linux distribution package suitable for developer workstations.",
+          action: "Download for Linux",
+        },
       ],
-      toolTitle: "Tool Manager Actions",
-      toolItems: [
-        "pnpm: install / update / uninstall",
-        "yarn: install / update / uninstall",
-        "npm: update",
-        "Node.js and Git are currently read-only display items",
-      ],
-      initTitle: "Project Init Support",
-      initItems: [
-        "Templates: react-ts / vue-ts / next / node-ts",
-        "Package managers: npm / pnpm / yarn",
-        "Optional Git repository initialization",
-        "Default project base: ~/Projects (configurable)",
+      extras: [
+        {
+          title: "Release Notes",
+          desc: "Track version updates, fixes, and behavior changes.",
+          action: "Open Releases",
+        },
+        {
+          title: "Documentation",
+          desc: "Read setup notes and usage guidance before installation.",
+          action: "Read README",
+        },
       ],
     },
-    stackSection: {
-      badge: "Engineering",
-      title: "Desktop-focused stack and release workflow",
-      subtitle: "Aligned with the main Envra repository",
-      stacks: [
-        "Tauri 2",
-        "React 19",
-        "Vite 7",
-        "Tailwind CSS v4",
-        "shadcn/ui",
-        "TypeScript",
-        "Zustand",
+    releaseSection: {
+      badge: "Release Log Entry",
+      title: "Transparent updates for reliable upgrades",
+      subtitle: "See what's changed before you deploy to your team.",
+      latestLabel: "Latest",
+      items: [
+        {
+          version: "v0.1.5",
+          date: "2026-03",
+          summary: "Current website-aligned release with core pages and bilingual/theme support.",
+        },
       ],
-      commandsTitle: "Common Commands",
-      devTitle: "Local Development",
-      buildTitle: "Local Build",
-      releaseTitle: "Release Example",
-      devCommand: "npm install\nnpm run tauri dev",
-      buildCommand: "npm run tauri build",
-      releaseCommand: "git tag v0.1.5\ngit push origin v0.1.5",
-      statusTitle: "Current Status",
-      statusBody: "Envra is currently frontend-first, and some page data is still mock/demo data.",
+      action: "View Full Changelog",
+    },
+    techSection: {
+      badge: "Technology",
+      title: "Solid foundations with user-facing performance benefits",
+      subtitle: "The stack is chosen to improve install and runtime experience, not to expose complex source workflows.",
+      stacks: ["Tauri 2", "React 19", "Vite 7", "TypeScript", "Zustand"],
+      advantages: [
+        {
+          title: "Lighter desktop runtime",
+          desc: "Tauri's system WebView approach often reduces package size and memory overhead.",
+        },
+        {
+          title: "Fast startup and interaction",
+          desc: "React + Vite keeps UI rendering and page transitions responsive for daily use.",
+        },
+        {
+          title: "Unified multi-platform delivery",
+          desc: "One product logic can target macOS, Linux, and Windows with less maintenance split.",
+        },
+        {
+          title: "Maintainable evolution path",
+          desc: "TypeScript and modular structure make future feature expansion safer and faster.",
+        },
+      ],
+    },
+    faqSection: {
+      badge: "FAQ",
+      title: "Common questions before and after installation",
+      items: [
+        {
+          q: "Who is Envra for?",
+          a: "Individual developers and small teams who want a faster and more reliable local environment setup flow.",
+        },
+        {
+          q: "Do I need to run the source code?",
+          a: "No. This site is focused on end-user download and installation through release packages.",
+        },
+        {
+          q: "Is all data fully live right now?",
+          a: "Some sections are still using demo/mock data in the current stage, while the core structure is available.",
+        },
+        {
+          q: "Are language and theme switches supported?",
+          a: "Yes. Envra supports bilingual UI and light/dark theme switching.",
+        },
+        {
+          q: "Where do I get updates?",
+          a: "Follow GitHub Releases to download newer versions and read changelog notes.",
+        },
+      ],
     },
     cta: {
-      title: "Start with Envra",
-      subtitle: "Build a faster and more reliable local development setup.",
-      primary: "Open GitHub Repository",
-      secondary: "Read Chinese Docs",
+      title: "Ready to try Envra?",
+      subtitle: "Install the latest release and run your first environment diagnostic in minutes.",
+      primary: "Download Latest",
+      secondary: "Open GitHub Repository",
     },
-    footer: "© 2026 Envra. Build Better Dev Environments.",
+    footer: "© 2026 Envra. Made for Developers Who Ship.",
   },
 };

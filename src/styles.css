@@ -13,10 +13,6 @@
   --cyan: #2ac0d4;
   --gold: #f4be32;
   --cyan-deep: #0b86b7;
-  --gold-deep: #d39218;
-
-  --code-bg: #0f1729;
-  --code-text: #dbe9ff;
 }
 
 :root[data-theme="dark"] {
@@ -31,10 +27,6 @@
   --cyan: #36c7da;
   --gold: #f8cb50;
   --cyan-deep: #249fc4;
-  --gold-deep: #e1a318;
-
-  --code-bg: #08101f;
-  --code-text: #d9e7ff;
 }
 
 * {
@@ -251,12 +243,8 @@ h3 {
 
 .subtitle {
   margin: 0;
-  max-width: 62ch;
+  max-width: 64ch;
   color: var(--text-soft);
-}
-
-.subtitle.small {
-  margin-top: 0;
 }
 
 .hero-actions {
@@ -270,6 +258,12 @@ h3 {
   justify-content: center;
 }
 
+.hero-note {
+  margin-top: 0.85rem;
+  color: var(--text-soft);
+  font-size: 0.92rem;
+}
+
 .glass {
   border: 1px solid var(--card-border);
   background: var(--card);
@@ -278,10 +272,14 @@ h3 {
   box-shadow: var(--shadow);
 }
 
-.hero-panel {
+.hero-panel,
+.info-card,
+.download-card,
+.release-item,
+.cta,
+.faq-item,
+.carousel {
   padding: 1.2rem;
-  align-self: start;
-  animation: float-up 0.8s ease;
 }
 
 .panel-title {
@@ -368,25 +366,15 @@ h3 {
   grid-template-columns: repeat(2, minmax(0, 1fr));
 }
 
-.info-card,
-.module-card,
-.stack-card,
-.command-card,
-.cta {
-  padding: 1.2rem;
-}
-
 .info-card p,
-.module-card p,
-.command-card p,
-.cta p,
-.status-note p {
+.download-card p,
+.release-item p {
   margin: 0;
   color: var(--text-soft);
 }
 
 .info-card ul,
-.module-card ul {
+.carousel-copy ul {
   margin: 0.7rem 0 0;
   padding-left: 1.15rem;
   color: var(--text-soft);
@@ -394,21 +382,23 @@ h3 {
   gap: 0.35rem;
 }
 
-.module-desc {
-  margin-bottom: 0.35rem;
-}
-
-.split {
+.carousel {
+  margin-top: 1.1rem;
   display: grid;
-  gap: 1rem;
   grid-template-columns: 1fr 1fr;
+  gap: 1rem;
 }
 
-.stack-list {
-  margin-top: 0.95rem;
+.carousel-copy p {
+  margin: 0;
+  color: var(--text-soft);
+}
+
+.tag-list {
+  margin-top: 0.75rem;
   display: flex;
   flex-wrap: wrap;
-  gap: 0.55rem;
+  gap: 0.5rem;
 }
 
 .chip {
@@ -422,48 +412,169 @@ h3 {
   color: color-mix(in srgb, var(--text) 82%, var(--cyan));
 }
 
-.status-note {
-  margin-top: 1.1rem;
-  border-top: 1px solid color-mix(in srgb, var(--text-soft) 20%, transparent);
-  padding-top: 0.8rem;
+.carousel-preview {
+  border-radius: 14px;
+  border: 1px solid color-mix(in srgb, var(--text-soft) 20%, transparent);
+  background: color-mix(in srgb, var(--card) 85%, transparent);
+  overflow: hidden;
 }
 
-.status-label {
-  font-weight: 700;
+.preview-top {
+  height: 34px;
+  border-bottom: 1px solid color-mix(in srgb, var(--text-soft) 16%, transparent);
+  display: flex;
+  align-items: center;
+  gap: 0.45rem;
+  padding: 0 0.7rem;
+}
+
+.preview-top span {
+  width: 10px;
+  height: 10px;
+  border-radius: 999px;
+  background: color-mix(in srgb, var(--text-soft) 42%, transparent);
+}
+
+.preview-main {
+  padding: 0.9rem;
+}
+
+.preview-title,
+.preview-row,
+.preview-grid span {
+  border-radius: 8px;
+  background: linear-gradient(90deg, color-mix(in srgb, var(--cyan) 34%, transparent), color-mix(in srgb, var(--gold) 33%, transparent));
+}
+
+.preview-title {
+  height: 22px;
+  width: 55%;
+}
+
+.preview-row {
+  margin-top: 0.55rem;
+  height: 14px;
+}
+
+.preview-row.short {
+  width: 72%;
+}
+
+.preview-grid {
+  margin-top: 0.75rem;
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 0.5rem;
+}
+
+.preview-grid span {
+  height: 62px;
+}
+
+.carousel-controls {
+  margin-top: 0.9rem;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 0.7rem;
+}
+
+.pager {
+  display: flex;
+  gap: 0.4rem;
+}
+
+.pager-dot {
+  width: 9px;
+  height: 9px;
+  border-radius: 999px;
+  border: 0;
+  padding: 0;
+  cursor: pointer;
+  background: color-mix(in srgb, var(--text-soft) 40%, transparent);
+}
+
+.pager-dot.active {
+  background: linear-gradient(132deg, var(--gold), var(--cyan));
+}
+
+.version-chip {
+  margin-top: 0.8rem;
+  color: var(--text-soft);
+}
+
+.download-card {
+  display: flex;
+  flex-direction: column;
+  gap: 0.9rem;
+}
+
+.download-card .main-btn {
+  width: fit-content;
+}
+
+.extras-grid .sub-btn {
+  margin-top: 0.75rem;
+  width: fit-content;
+}
+
+.release-list {
+  margin-top: 1rem;
+  display: grid;
+  gap: 0.8rem;
+}
+
+.release-head {
+  display: flex;
+  justify-content: space-between;
+  font-family: var(--font-heading);
   color: var(--text) !important;
-  margin-bottom: 0.3rem !important;
+  margin-bottom: 0.35rem !important;
 }
 
-.command-card pre {
-  margin: 0.4rem 0 0;
-  padding: 0.8rem 0.9rem;
-  border-radius: 12px;
-  overflow-x: auto;
-  background: var(--code-bg);
-}
-
-.command-card code {
-  font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", "Courier New", monospace;
-  color: var(--code-text);
-  font-size: 0.87rem;
-  line-height: 1.52;
-}
-
-.command-group + .command-group {
-  margin-top: 0.88rem;
-}
-
-.command-group p {
+.release-tag {
+  margin-top: 0.6rem;
+  display: inline-flex;
+  padding: 0.2rem 0.58rem;
+  border-radius: 999px;
+  background: color-mix(in srgb, var(--gold) 34%, transparent);
+  color: color-mix(in srgb, var(--text) 72%, var(--gold));
+  font-size: 0.77rem;
   font-weight: 700;
-  color: var(--text) !important;
+}
+
+.release-link {
+  margin-top: 0.8rem;
+  display: inline-flex;
+}
+
+.stack-list.spaced {
+  margin-top: 0.9rem;
+  margin-bottom: 1rem;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.6rem;
+}
+
+.faq-list {
+  margin-top: 1rem;
+  display: grid;
+  gap: 0.75rem;
+}
+
+.faq-item summary {
+  cursor: pointer;
+  font-weight: 700;
+  font-family: var(--font-heading);
+}
+
+.faq-item p {
+  margin: 0.7rem 0 0;
+  color: var(--text-soft);
 }
 
 .cta {
   text-align: center;
-}
-
-.cta h2 {
-  margin-top: 0.15rem;
 }
 
 .footer {
@@ -475,22 +586,11 @@ h3 {
   font-size: 0.9rem;
 }
 
-@keyframes float-up {
-  0% {
-    opacity: 0;
-    transform: translateY(14px);
-  }
-  100% {
-    opacity: 1;
-    transform: translateY(0);
-  }
-}
-
 @media (max-width: 1040px) {
   .hero,
+  .stats,
   .card-grid.three,
-  .split,
-  .stats {
+  .carousel {
     grid-template-columns: 1fr 1fr;
   }
 
@@ -521,7 +621,7 @@ h3 {
   .stats,
   .card-grid.three,
   .card-grid.two,
-  .split {
+  .carousel {
     grid-template-columns: 1fr;
   }
 
@@ -540,5 +640,10 @@ h3 {
 
   h1 {
     max-width: none;
+  }
+
+  .carousel-controls {
+    flex-wrap: wrap;
+    justify-content: center;
   }
 }

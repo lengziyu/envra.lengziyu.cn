@@ -2,6 +2,8 @@ import { useEffect, useMemo, useState } from "react";
 import { Locale, content } from "./content";
 
 const REPO_URL = "https://github.com/lengziyu/Envra";
+const RELEASES_URL = "https://github.com/lengziyu/Envra/releases";
+const RELEASE_LATEST_URL = "https://github.com/lengziyu/Envra/releases/latest";
 const README_ZH = "https://github.com/lengziyu/Envra/blob/main/README.zh-CN.md";
 const README_EN = "https://github.com/lengziyu/Envra/blob/main/README.md";
 
@@ -24,8 +26,10 @@ function getInitialTheme(): ThemeMode {
 function App() {
   const [locale, setLocale] = useState<Locale>(getInitialLocale);
   const [theme, setTheme] = useState<ThemeMode>(getInitialTheme);
+  const [slideIndex, setSlideIndex] = useState(0);
 
   const t = useMemo(() => content[locale], [locale]);
+  const activeSlide = t.screenshotSection.slides[slideIndex];
 
   useEffect(() => {
     document.documentElement.lang = t.htmlLang;
@@ -41,8 +45,25 @@ function App() {
     localStorage.setItem("envra-site-locale", locale);
   }, [locale]);
 
+  useEffect(() => {
+    setSlideIndex(0);
+  }, [locale]);
+
+  useEffect(() => {
+    const timer = window.setInterval(() => {
+      setSlideIndex((prev) => (prev + 1) % t.screenshotSection.slides.length);
+    }, 5000);
+    return () => window.clearInterval(timer);
+  }, [t.screenshotSection.slides.length]);
+
   const switchLocale = () => setLocale((prev) => (prev === "zh" ? "en" : "zh"));
   const switchTheme = () => setTheme((prev) => (prev === "light" ? "dark" : "light"));
+  const showPrevSlide = () =>
+    setSlideIndex((prev) =>
+      prev === 0 ? t.screenshotSection.slides.length - 1 : prev - 1
+    );
+  const showNextSlide = () =>
+    setSlideIndex((prev) => (prev + 1) % t.screenshotSection.slides.length);
 
   return (
     <div className="page">
@@ -60,9 +81,9 @@ function App() {
 
         <nav className="nav">
           <a href="#features">{t.nav.features}</a>
-          <a href="#modules">{t.nav.modules}</a>
-          <a href="#stack">{t.nav.stack}</a>
-          <a href="#start">{t.nav.start}</a>
+          <a href="#screenshots">{t.nav.screenshots}</a>
+          <a href="#download">{t.nav.download}</a>
+          <a href="#faq">{t.nav.faq}</a>
         </nav>
 
         <div className="actions">
@@ -85,13 +106,14 @@ function App() {
             <h1>{t.hero.title}</h1>
             <p className="subtitle">{t.hero.subtitle}</p>
             <div className="hero-actions">
-              <a className="main-btn" href={REPO_URL} target="_blank" rel="noreferrer">
+              <a className="main-btn" href="#download">
                 {t.hero.primary}
               </a>
-              <a className="sub-btn" href="#features">
+              <a className="sub-btn" href={RELEASES_URL} target="_blank" rel="noreferrer">
                 {t.hero.secondary}
               </a>
             </div>
+            <p className="hero-note">{t.hero.note}</p>
           </div>
 
           <aside className="hero-panel glass">
@@ -108,7 +130,7 @@ function App() {
               </li>
               <li>
                 <span className="dot warn" />
-                <span>{t.stackSection.statusBody}</span>
+                <span>{t.downloadSection.versionLabel}: {t.downloadSection.versionValue}</span>
               </li>
             </ul>
           </aside>
@@ -136,93 +158,170 @@ function App() {
           </div>
         </section>
 
-        <section id="modules" className="section">
-          <p className="eyebrow">{t.moduleSection.badge}</p>
-          <h2>{t.moduleSection.title}</h2>
+        <section id="screenshots" className="section">
+          <p className="eyebrow">{t.screenshotSection.badge}</p>
+          <h2>{t.screenshotSection.title}</h2>
+          <p className="subtitle">{t.screenshotSection.subtitle}</p>
+
+          <div className="carousel glass">
+            <div className="carousel-copy">
+              <h3>{activeSlide.title}</h3>
+              <p>{activeSlide.caption}</p>
+              <div className="tag-list">
+                {activeSlide.tags.map((tag) => (
+                  <span key={tag} className="chip">
+                    {tag}
+                  </span>
+                ))}
+              </div>
+              <ul>
+                {activeSlide.points.map((point) => (
+                  <li key={point}>{point}</li>
+                ))}
+              </ul>
+            </div>
+
+            <div className="carousel-preview" aria-hidden="true">
+              <div className="preview-top">
+                <span />
+                <span />
+                <span />
+              </div>
+              <div className="preview-main">
+                <div className="preview-title" />
+                <div className="preview-row" />
+                <div className="preview-row" />
+                <div className="preview-row short" />
+                <div className="preview-grid">
+                  <span />
+                  <span />
+                  <span />
+                  <span />
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <div className="carousel-controls">
+            <button className="ghost-btn" onClick={showPrevSlide}>
+              {t.screenshotSection.previous}
+            </button>
+            <div className="pager">
+              {t.screenshotSection.slides.map((slide, index) => (
+                <button
+                  key={slide.title}
+                  className={index === slideIndex ? "pager-dot active" : "pager-dot"}
+                  onClick={() => setSlideIndex(index)}
+                  aria-label={slide.title}
+                />
+              ))}
+            </div>
+            <button className="ghost-btn" onClick={showNextSlide}>
+              {t.screenshotSection.next}
+            </button>
+          </div>
+        </section>
+
+        <section id="download" className="section">
+          <p className="eyebrow">{t.downloadSection.badge}</p>
+          <h2>{t.downloadSection.title}</h2>
+          <p className="subtitle">{t.downloadSection.subtitle}</p>
+          <p className="version-chip">
+            {t.downloadSection.versionLabel}: <strong>{t.downloadSection.versionValue}</strong>
+          </p>
+
+          <div className="card-grid three">
+            {t.downloadSection.cards.map((card) => (
+              <article key={card.platform} className="download-card glass">
+                <h3>{card.platform}</h3>
+                <p>{card.desc}</p>
+                <a className="main-btn" href={RELEASE_LATEST_URL} target="_blank" rel="noreferrer">
+                  {card.action}
+                </a>
+              </article>
+            ))}
+          </div>
+
+          <div className="card-grid two extras-grid">
+            <article className="info-card glass">
+              <h3>{t.downloadSection.extras[0].title}</h3>
+              <p>{t.downloadSection.extras[0].desc}</p>
+              <a className="sub-btn" href={RELEASES_URL} target="_blank" rel="noreferrer">
+                {t.downloadSection.extras[0].action}
+              </a>
+            </article>
+            <article className="info-card glass">
+              <h3>{t.downloadSection.extras[1].title}</h3>
+              <p>{t.downloadSection.extras[1].desc}</p>
+              <a
+                className="sub-btn"
+                href={locale === "zh" ? README_ZH : README_EN}
+                target="_blank"
+                rel="noreferrer"
+              >
+                {t.downloadSection.extras[1].action}
+              </a>
+            </article>
+          </div>
+        </section>
+
+        <section className="section">
+          <p className="eyebrow">{t.releaseSection.badge}</p>
+          <h2>{t.releaseSection.title}</h2>
+          <p className="subtitle">{t.releaseSection.subtitle}</p>
+
+          <div className="release-list">
+            {t.releaseSection.items.map((item) => (
+              <article key={item.version} className="release-item glass">
+                <p className="release-head">
+                  <span>{item.version}</span>
+                  <span>{item.date}</span>
+                </p>
+                <p>{item.summary}</p>
+                <span className="release-tag">{t.releaseSection.latestLabel}</span>
+              </article>
+            ))}
+          </div>
+
+          <a className="sub-btn release-link" href={RELEASES_URL} target="_blank" rel="noreferrer">
+            {t.releaseSection.action}
+          </a>
+        </section>
+
+        <section className="section">
+          <p className="eyebrow">{t.techSection.badge}</p>
+          <h2>{t.techSection.title}</h2>
+          <p className="subtitle">{t.techSection.subtitle}</p>
+
+          <div className="stack-list spaced">
+            {t.techSection.stacks.map((stack) => (
+              <span key={stack} className="chip">
+                {stack}
+              </span>
+            ))}
+          </div>
+
           <div className="card-grid two">
-            {t.moduleSection.modules.map((module) => (
-              <article key={module.name} className="module-card glass">
-                <h3>{module.name}</h3>
-                <p className="module-desc">{module.desc}</p>
-                <ul>
-                  {module.points.map((point) => (
-                    <li key={point}>{point}</li>
-                  ))}
-                </ul>
+            {t.techSection.advantages.map((adv) => (
+              <article key={adv.title} className="info-card glass">
+                <h3>{adv.title}</h3>
+                <p>{adv.desc}</p>
               </article>
             ))}
           </div>
         </section>
 
-        <section className="section">
-          <p className="eyebrow">{t.detailSection.badge}</p>
-          <h2>{t.detailSection.title}</h2>
-          <div className="card-grid three">
-            <article className="info-card glass">
-              <h3>{t.detailSection.doctorTitle}</h3>
-              <ul>
-                {t.detailSection.doctorItems.map((item) => (
-                  <li key={item}>{item}</li>
-                ))}
-              </ul>
-            </article>
-            <article className="info-card glass">
-              <h3>{t.detailSection.toolTitle}</h3>
-              <ul>
-                {t.detailSection.toolItems.map((item) => (
-                  <li key={item}>{item}</li>
-                ))}
-              </ul>
-            </article>
-            <article className="info-card glass">
-              <h3>{t.detailSection.initTitle}</h3>
-              <ul>
-                {t.detailSection.initItems.map((item) => (
-                  <li key={item}>{item}</li>
-                ))}
-              </ul>
-            </article>
-          </div>
-        </section>
+        <section id="faq" className="section">
+          <p className="eyebrow">{t.faqSection.badge}</p>
+          <h2>{t.faqSection.title}</h2>
 
-        <section id="stack" className="section split">
-          <div className="glass stack-card">
-            <p className="eyebrow">{t.stackSection.badge}</p>
-            <h2>{t.stackSection.title}</h2>
-            <p className="subtitle small">{t.stackSection.subtitle}</p>
-            <div className="stack-list">
-              {t.stackSection.stacks.map((stack) => (
-                <span key={stack} className="chip">
-                  {stack}
-                </span>
-              ))}
-            </div>
-            <div className="status-note">
-              <p className="status-label">{t.stackSection.statusTitle}</p>
-              <p>{t.stackSection.statusBody}</p>
-            </div>
-          </div>
-
-          <div id="start" className="glass command-card">
-            <h3>{t.stackSection.commandsTitle}</h3>
-            <div className="command-group">
-              <p>{t.stackSection.devTitle}</p>
-              <pre>
-                <code>{t.stackSection.devCommand}</code>
-              </pre>
-            </div>
-            <div className="command-group">
-              <p>{t.stackSection.buildTitle}</p>
-              <pre>
-                <code>{t.stackSection.buildCommand}</code>
-              </pre>
-            </div>
-            <div className="command-group">
-              <p>{t.stackSection.releaseTitle}</p>
-              <pre>
-                <code>{t.stackSection.releaseCommand}</code>
-              </pre>
-            </div>
+          <div className="faq-list">
+            {t.faqSection.items.map((item) => (
+              <details key={item.q} className="faq-item glass">
+                <summary>{item.q}</summary>
+                <p>{item.a}</p>
+              </details>
+            ))}
           </div>
         </section>
 
@@ -230,15 +329,10 @@ function App() {
           <h2>{t.cta.title}</h2>
           <p>{t.cta.subtitle}</p>
           <div className="hero-actions center">
-            <a className="main-btn" href={REPO_URL} target="_blank" rel="noreferrer">
+            <a className="main-btn" href={RELEASE_LATEST_URL} target="_blank" rel="noreferrer">
               {t.cta.primary}
             </a>
-            <a
-              className="sub-btn"
-              href={locale === "zh" ? README_ZH : README_EN}
-              target="_blank"
-              rel="noreferrer"
-            >
+            <a className="sub-btn" href={REPO_URL} target="_blank" rel="noreferrer">
               {t.cta.secondary}
             </a>
           </div>
