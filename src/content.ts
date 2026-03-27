@@ -23,19 +23,12 @@ export interface SiteContent {
   };
   highlights: Array<{ icon: string; label: string; value: string }>;
   screenshotSection: {
-    previous: string;
-    next: string;
     slides: Array<{
       title: string;
       caption: string;
       tags: string[];
       points: string[];
     }>;
-  };
-  featureSection: {
-    badge: string;
-    title: string;
-    cards: Array<{ icon: string; title: string; desc: string }>;
   };
   downloadSection: {
     badge: string;
@@ -53,6 +46,11 @@ export interface SiteContent {
       desc: string;
       action: string;
     }>;
+  };
+  featureSection: {
+    badge: string;
+    title: string;
+    cards: Array<{ icon: string; title: string; desc: string }>;
   };
   techSection: {
     badge: string;
@@ -74,7 +72,6 @@ export interface SiteContent {
   };
   footer: {
     copyright: string;
-    linksLabel: string;
     project: string;
     home: string;
     nav: string;
@@ -111,8 +108,6 @@ export const content: Record<Locale, SiteContent> = {
       { icon: "users", label: "定位", value: "面向下载安装用户" },
     ],
     screenshotSection: {
-      previous: "上一张",
-      next: "下一张",
       slides: [
         {
           title: "Dashboard",
@@ -156,42 +151,6 @@ export const content: Record<Locale, SiteContent> = {
         },
       ],
     },
-    featureSection: {
-      badge: "产品能力",
-      title: "安装后就能直接提升效率的核心功能",
-      cards: [
-        {
-          icon: "gauge",
-          title: "环境健康概览",
-          desc: "仪表盘快速看到机器状态、问题数量与关键入口。",
-        },
-        {
-          icon: "shield",
-          title: "Environment Doctor",
-          desc: "扫描 Node/npm/pnpm/yarn/Git/SSH/Git 配置并支持可修复项。",
-        },
-        {
-          icon: "tool",
-          title: "工具管理",
-          desc: "已安装与可安装工具分区展示，统一安装/更新/卸载。",
-        },
-        {
-          icon: "sparkles",
-          title: "项目初始化",
-          desc: "快速创建 React TS、Vue TS、Next.js、Node TS 项目。",
-        },
-        {
-          icon: "settings",
-          title: "偏好设置持久化",
-          desc: "主题、语言、镜像源、安装路径、代理等设置持久保存。",
-        },
-        {
-          icon: "desktop",
-          title: "跨平台桌面应用",
-          desc: "Tauri 架构带来更轻量的资源占用和更快的启动体验。",
-        },
-      ],
-    },
     downloadSection: {
       badge: "下载与安装",
       title: "按你的系统直接下载安装",
@@ -225,6 +184,42 @@ export const content: Record<Locale, SiteContent> = {
           title: "中文文档",
           desc: "查看项目说明、注意事项与安装建议。",
           action: "查看 README",
+        },
+      ],
+    },
+    featureSection: {
+      badge: "产品能力",
+      title: "安装后就能直接提升效率的核心功能",
+      cards: [
+        {
+          icon: "gauge",
+          title: "环境健康概览",
+          desc: "仪表盘快速看到机器状态、问题数量与关键入口。",
+        },
+        {
+          icon: "shield",
+          title: "Environment Doctor",
+          desc: "扫描 Node/npm/pnpm/yarn/Git/SSH/Git 配置并支持可修复项。",
+        },
+        {
+          icon: "tool",
+          title: "工具管理",
+          desc: "已安装与可安装工具分区展示，统一安装/更新/卸载。",
+        },
+        {
+          icon: "sparkles",
+          title: "项目初始化",
+          desc: "快速创建 React TS、Vue TS、Next.js、Node TS 项目。",
+        },
+        {
+          icon: "settings",
+          title: "偏好设置持久化",
+          desc: "主题、语言、镜像源、安装路径、代理等设置持久保存。",
+        },
+        {
+          icon: "desktop",
+          title: "跨平台桌面应用",
+          desc: "Tauri 架构带来更轻量的资源占用和更快的启动体验。",
         },
       ],
     },
@@ -268,6 +263,18 @@ export const content: Record<Locale, SiteContent> = {
           q: "如何获取更新？",
           a: "关注 GitHub Releases 页面，下载最新版本并查看更新日志。",
         },
+        {
+          q: "支持哪些系统？",
+          a: "当前提供 macOS、Windows、Linux 三个平台安装包。",
+        },
+        {
+          q: "适合团队使用吗？",
+          a: "适合。它能统一新成员环境搭建入口，降低环境差异带来的沟通成本。",
+        },
+        {
+          q: "现在是不是最终版本？",
+          a: "目前仍在持续迭代中，部分页面数据仍含演示内容，但主要流程已可用。",
+        },
       ],
     },
     cta: {
@@ -278,7 +285,6 @@ export const content: Record<Locale, SiteContent> = {
     },
     footer: {
       copyright: "Copyright © 2026 lengziyu.cn. All rights reserved.",
-      linksLabel: "外链",
       project: "项目 GitHub",
       home: "lengziyu.cn",
       nav: "nav.lengziyu.cn",
@@ -313,8 +319,6 @@ export const content: Record<Locale, SiteContent> = {
       { icon: "users", label: "Positioning", value: "Built for end users" },
     ],
     screenshotSection: {
-      previous: "Previous",
-      next: "Next",
       slides: [
         {
           title: "Dashboard",
@@ -358,42 +362,6 @@ export const content: Record<Locale, SiteContent> = {
         },
       ],
     },
-    featureSection: {
-      badge: "Features",
-      title: "Core capabilities that improve workflow after install",
-      cards: [
-        {
-          icon: "gauge",
-          title: "Environment Overview",
-          desc: "A clear dashboard for machine status, issue count, and quick actions.",
-        },
-        {
-          icon: "shield",
-          title: "Environment Doctor",
-          desc: "Scans Node/npm/pnpm/yarn/Git/SSH/Git config with one-click fixes where available.",
-        },
-        {
-          icon: "tool",
-          title: "Tool Manager",
-          desc: "Installed/available tool split with unified install/update/uninstall actions.",
-        },
-        {
-          icon: "sparkles",
-          title: "Project Init",
-          desc: "Scaffold React TS, Vue TS, Next.js, and Node TS projects quickly.",
-        },
-        {
-          icon: "settings",
-          title: "Persistent Preferences",
-          desc: "Theme, language, registry mirror, install path, and proxy are saved.",
-        },
-        {
-          icon: "desktop",
-          title: "Cross-platform Desktop",
-          desc: "Tauri architecture brings lightweight runtime and fast startup behavior.",
-        },
-      ],
-    },
     downloadSection: {
       badge: "Download",
       title: "Get the right package for your platform",
@@ -427,6 +395,42 @@ export const content: Record<Locale, SiteContent> = {
           title: "Documentation",
           desc: "Read setup notes and usage guidance before installation.",
           action: "Read README",
+        },
+      ],
+    },
+    featureSection: {
+      badge: "Features",
+      title: "Core capabilities that improve workflow after install",
+      cards: [
+        {
+          icon: "gauge",
+          title: "Environment Overview",
+          desc: "A clear dashboard for machine status, issue count, and quick actions.",
+        },
+        {
+          icon: "shield",
+          title: "Environment Doctor",
+          desc: "Scans Node/npm/pnpm/yarn/Git/SSH/Git config with one-click fixes where available.",
+        },
+        {
+          icon: "tool",
+          title: "Tool Manager",
+          desc: "Installed/available tool split with unified install/update/uninstall actions.",
+        },
+        {
+          icon: "sparkles",
+          title: "Project Init",
+          desc: "Scaffold React TS, Vue TS, Next.js, and Node TS projects quickly.",
+        },
+        {
+          icon: "settings",
+          title: "Persistent Preferences",
+          desc: "Theme, language, registry mirror, install path, and proxy are saved.",
+        },
+        {
+          icon: "desktop",
+          title: "Cross-platform Desktop",
+          desc: "Tauri architecture brings lightweight runtime and fast startup behavior.",
         },
       ],
     },
@@ -470,6 +474,18 @@ export const content: Record<Locale, SiteContent> = {
           q: "Where do I get updates?",
           a: "Follow GitHub Releases to download newer versions and read changelog notes.",
         },
+        {
+          q: "Which systems are supported?",
+          a: "Currently macOS, Windows, and Linux installation packages are provided.",
+        },
+        {
+          q: "Can teams use Envra?",
+          a: "Yes. It helps standardize onboarding and reduce environment mismatch overhead.",
+        },
+        {
+          q: "Is this the final version?",
+          a: "Envra is still evolving; some pages still contain demo data while core flows are available.",
+        },
       ],
     },
     cta: {
@@ -480,7 +496,6 @@ export const content: Record<Locale, SiteContent> = {
     },
     footer: {
       copyright: "Copyright © 2026 lengziyu.cn. All rights reserved.",
-      linksLabel: "Links",
       project: "Project GitHub",
       home: "lengziyu.cn",
       nav: "nav.lengziyu.cn",

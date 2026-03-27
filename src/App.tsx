@@ -60,12 +60,6 @@ function App() {
 
   const switchLocale = () => setLocale((prev) => (prev === "zh" ? "en" : "zh"));
   const switchTheme = () => setTheme((prev) => (prev === "light" ? "dark" : "light"));
-  const showPrevSlide = () =>
-    setSlideIndex((prev) =>
-      prev === 0 ? t.screenshotSection.slides.length - 1 : prev - 1
-    );
-  const showNextSlide = () =>
-    setSlideIndex((prev) => (prev + 1) % t.screenshotSection.slides.length);
 
   return (
     <div className="page">
@@ -82,8 +76,8 @@ function App() {
         </a>
 
         <nav className="nav">
-          <a href="#features">{t.nav.features}</a>
           <a href="#download">{t.nav.download}</a>
+          <a href="#features">{t.nav.features}</a>
           <a href="#faq">{t.nav.faq}</a>
         </nav>
 
@@ -115,25 +109,39 @@ function App() {
               </a>
             </div>
             <p className="hero-note">{t.hero.note}</p>
+
+            <div className="stats in-hero">
+              {t.highlights.map((item) => (
+                <article key={item.label} className="stat-card glass">
+                  <span className="stat-icon" aria-hidden="true">
+                    <Icon kind={item.icon} />
+                  </span>
+                  <div>
+                    <p>{item.label}</p>
+                    <strong>{item.value}</strong>
+                  </div>
+                </article>
+              ))}
+            </div>
           </div>
 
           <aside className="hero-panel glass">
-            <div className="carousel-copy">
+            <div className="hero-panel-head">
               <h3>{activeSlide.title}</h3>
-              <p>{activeSlide.caption}</p>
-              <div className="tag-list">
+              <div className="tag-list align-right">
                 {activeSlide.tags.map((tag) => (
                   <span key={tag} className="chip">
                     {tag}
                   </span>
                 ))}
               </div>
-              <ul>
-                {activeSlide.points.map((point) => (
-                  <li key={point}>{point}</li>
-                ))}
-              </ul>
             </div>
+            <p>{activeSlide.caption}</p>
+            <ul>
+              {activeSlide.points.map((point) => (
+                <li key={point}>{point}</li>
+              ))}
+            </ul>
 
             <div className="carousel-preview" aria-hidden="true">
               <div className="preview-top">
@@ -153,13 +161,8 @@ function App() {
                   <span />
                 </div>
               </div>
-            </div>
 
-            <div className="carousel-controls compact">
-              <button className="ghost-btn" onClick={showPrevSlide}>
-                {t.screenshotSection.previous}
-              </button>
-              <div className="pager">
+              <div className="carousel-dots-in">
                 {t.screenshotSection.slides.map((slide, index) => (
                   <button
                     key={slide.title}
@@ -169,41 +172,8 @@ function App() {
                   />
                 ))}
               </div>
-              <button className="ghost-btn" onClick={showNextSlide}>
-                {t.screenshotSection.next}
-              </button>
             </div>
           </aside>
-        </section>
-
-        <section className="section stats">
-          {t.highlights.map((item) => (
-            <article key={item.label} className="stat-card glass">
-              <span className="stat-icon" aria-hidden="true">
-                <Icon kind={item.icon} />
-              </span>
-              <div>
-                <p>{item.label}</p>
-                <strong>{item.value}</strong>
-              </div>
-            </article>
-          ))}
-        </section>
-
-        <section id="features" className="section">
-          <p className="eyebrow">{t.featureSection.badge}</p>
-          <h2>{t.featureSection.title}</h2>
-          <div className="card-grid three">
-            {t.featureSection.cards.map((card) => (
-              <article key={card.title} className="info-card glass feature-card">
-                <span className="feature-icon" aria-hidden="true">
-                  <Icon kind={card.icon} />
-                </span>
-                <h3>{card.title}</h3>
-                <p>{card.desc}</p>
-              </article>
-            ))}
-          </div>
         </section>
 
         <section id="download" className="section">
@@ -246,6 +216,22 @@ function App() {
                 {t.downloadSection.extras[1].action}
               </a>
             </article>
+          </div>
+        </section>
+
+        <section id="features" className="section">
+          <p className="eyebrow">{t.featureSection.badge}</p>
+          <h2>{t.featureSection.title}</h2>
+          <div className="card-grid three">
+            {t.featureSection.cards.map((card) => (
+              <article key={card.title} className="info-card glass feature-card">
+                <span className="feature-icon" aria-hidden="true">
+                  <Icon kind={card.icon} />
+                </span>
+                <h3>{card.title}</h3>
+                <p>{card.desc}</p>
+              </article>
+            ))}
           </div>
         </section>
 
@@ -300,10 +286,9 @@ function App() {
         </section>
       </main>
 
-      <footer className="footer">
+      <footer className="footer split-footer">
         <p>{t.footer.copyright}</p>
         <p>
-          {t.footer.linksLabel}: 
           <a href={REPO_URL} target="_blank" rel="noreferrer">{t.footer.project}</a>
           <span> · </span>
           <a href={HOME_URL} target="_blank" rel="noreferrer">{t.footer.home}</a>
