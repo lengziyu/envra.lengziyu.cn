@@ -6,6 +6,8 @@ const RELEASES_URL = "https://github.com/lengziyu/Envra/releases";
 const RELEASE_LATEST_URL = "https://github.com/lengziyu/Envra/releases/latest";
 const README_ZH = "https://github.com/lengziyu/Envra/blob/main/README.zh-CN.md";
 const README_EN = "https://github.com/lengziyu/Envra/blob/main/README.md";
+const HOME_URL = "https://lengziyu.cn";
+const NAV_URL = "https://nav.lengziyu.cn";
 
 type ThemeMode = "light" | "dark";
 
@@ -52,7 +54,7 @@ function App() {
   useEffect(() => {
     const timer = window.setInterval(() => {
       setSlideIndex((prev) => (prev + 1) % t.screenshotSection.slides.length);
-    }, 5000);
+    }, 4500);
     return () => window.clearInterval(timer);
   }, [t.screenshotSection.slides.length]);
 
@@ -81,7 +83,6 @@ function App() {
 
         <nav className="nav">
           <a href="#features">{t.nav.features}</a>
-          <a href="#screenshots">{t.nav.screenshots}</a>
           <a href="#download">{t.nav.download}</a>
           <a href="#faq">{t.nav.faq}</a>
         </nav>
@@ -109,7 +110,7 @@ function App() {
               <a className="main-btn" href="#download">
                 {t.hero.primary}
               </a>
-              <a className="sub-btn" href={RELEASES_URL} target="_blank" rel="noreferrer">
+              <a className="sub-btn" href={REPO_URL} target="_blank" rel="noreferrer">
                 {t.hero.secondary}
               </a>
             </div>
@@ -117,53 +118,6 @@ function App() {
           </div>
 
           <aside className="hero-panel glass">
-            <p className="panel-title">Envra v0.1.5</p>
-            <p className="panel-subtitle">Tauri 2 + React 19</p>
-            <ul className="status-list">
-              <li>
-                <span className="dot good" />
-                <span>Dashboard + Doctor + Tools + Init + Settings</span>
-              </li>
-              <li>
-                <span className="dot good" />
-                <span>zh / en bilingual UI</span>
-              </li>
-              <li>
-                <span className="dot warn" />
-                <span>{t.downloadSection.versionLabel}: {t.downloadSection.versionValue}</span>
-              </li>
-            </ul>
-          </aside>
-        </section>
-
-        <section className="section stats">
-          {t.highlights.map((item) => (
-            <article key={item.label} className="stat-card glass">
-              <p>{item.label}</p>
-              <strong>{item.value}</strong>
-            </article>
-          ))}
-        </section>
-
-        <section id="features" className="section">
-          <p className="eyebrow">{t.featureSection.badge}</p>
-          <h2>{t.featureSection.title}</h2>
-          <div className="card-grid three">
-            {t.featureSection.cards.map((card) => (
-              <article key={card.title} className="info-card glass">
-                <h3>{card.title}</h3>
-                <p>{card.desc}</p>
-              </article>
-            ))}
-          </div>
-        </section>
-
-        <section id="screenshots" className="section">
-          <p className="eyebrow">{t.screenshotSection.badge}</p>
-          <h2>{t.screenshotSection.title}</h2>
-          <p className="subtitle">{t.screenshotSection.subtitle}</p>
-
-          <div className="carousel glass">
             <div className="carousel-copy">
               <h3>{activeSlide.title}</h3>
               <p>{activeSlide.caption}</p>
@@ -200,25 +154,55 @@ function App() {
                 </div>
               </div>
             </div>
-          </div>
 
-          <div className="carousel-controls">
-            <button className="ghost-btn" onClick={showPrevSlide}>
-              {t.screenshotSection.previous}
-            </button>
-            <div className="pager">
-              {t.screenshotSection.slides.map((slide, index) => (
-                <button
-                  key={slide.title}
-                  className={index === slideIndex ? "pager-dot active" : "pager-dot"}
-                  onClick={() => setSlideIndex(index)}
-                  aria-label={slide.title}
-                />
-              ))}
+            <div className="carousel-controls compact">
+              <button className="ghost-btn" onClick={showPrevSlide}>
+                {t.screenshotSection.previous}
+              </button>
+              <div className="pager">
+                {t.screenshotSection.slides.map((slide, index) => (
+                  <button
+                    key={slide.title}
+                    className={index === slideIndex ? "pager-dot active" : "pager-dot"}
+                    onClick={() => setSlideIndex(index)}
+                    aria-label={slide.title}
+                  />
+                ))}
+              </div>
+              <button className="ghost-btn" onClick={showNextSlide}>
+                {t.screenshotSection.next}
+              </button>
             </div>
-            <button className="ghost-btn" onClick={showNextSlide}>
-              {t.screenshotSection.next}
-            </button>
+          </aside>
+        </section>
+
+        <section className="section stats">
+          {t.highlights.map((item) => (
+            <article key={item.label} className="stat-card glass">
+              <span className="stat-icon" aria-hidden="true">
+                <Icon kind={item.icon} />
+              </span>
+              <div>
+                <p>{item.label}</p>
+                <strong>{item.value}</strong>
+              </div>
+            </article>
+          ))}
+        </section>
+
+        <section id="features" className="section">
+          <p className="eyebrow">{t.featureSection.badge}</p>
+          <h2>{t.featureSection.title}</h2>
+          <div className="card-grid three">
+            {t.featureSection.cards.map((card) => (
+              <article key={card.title} className="info-card glass feature-card">
+                <span className="feature-icon" aria-hidden="true">
+                  <Icon kind={card.icon} />
+                </span>
+                <h3>{card.title}</h3>
+                <p>{card.desc}</p>
+              </article>
+            ))}
           </div>
         </section>
 
@@ -243,14 +227,14 @@ function App() {
           </div>
 
           <div className="card-grid two extras-grid">
-            <article className="info-card glass">
+            <article className="info-card glass extra-card">
               <h3>{t.downloadSection.extras[0].title}</h3>
               <p>{t.downloadSection.extras[0].desc}</p>
               <a className="sub-btn" href={RELEASES_URL} target="_blank" rel="noreferrer">
                 {t.downloadSection.extras[0].action}
               </a>
             </article>
-            <article className="info-card glass">
+            <article className="info-card glass extra-card">
               <h3>{t.downloadSection.extras[1].title}</h3>
               <p>{t.downloadSection.extras[1].desc}</p>
               <a
@@ -263,29 +247,6 @@ function App() {
               </a>
             </article>
           </div>
-        </section>
-
-        <section className="section">
-          <p className="eyebrow">{t.releaseSection.badge}</p>
-          <h2>{t.releaseSection.title}</h2>
-          <p className="subtitle">{t.releaseSection.subtitle}</p>
-
-          <div className="release-list">
-            {t.releaseSection.items.map((item) => (
-              <article key={item.version} className="release-item glass">
-                <p className="release-head">
-                  <span>{item.version}</span>
-                  <span>{item.date}</span>
-                </p>
-                <p>{item.summary}</p>
-                <span className="release-tag">{t.releaseSection.latestLabel}</span>
-              </article>
-            ))}
-          </div>
-
-          <a className="sub-btn release-link" href={RELEASES_URL} target="_blank" rel="noreferrer">
-            {t.releaseSection.action}
-          </a>
         </section>
 
         <section className="section">
@@ -311,13 +272,13 @@ function App() {
           </div>
         </section>
 
-        <section id="faq" className="section">
+        <section id="faq" className="section faq-section">
           <p className="eyebrow">{t.faqSection.badge}</p>
           <h2>{t.faqSection.title}</h2>
 
-          <div className="faq-list">
+          <div className="faq-list compact-grid">
             {t.faqSection.items.map((item) => (
-              <details key={item.q} className="faq-item glass">
+              <details key={item.q} className="faq-item glass" open={false}>
                 <summary>{item.q}</summary>
                 <p>{item.a}</p>
               </details>
@@ -340,10 +301,45 @@ function App() {
       </main>
 
       <footer className="footer">
-        <p>{t.footer}</p>
+        <p>{t.footer.copyright}</p>
+        <p>
+          {t.footer.linksLabel}: 
+          <a href={REPO_URL} target="_blank" rel="noreferrer">{t.footer.project}</a>
+          <span> · </span>
+          <a href={HOME_URL} target="_blank" rel="noreferrer">{t.footer.home}</a>
+          <span> · </span>
+          <a href={NAV_URL} target="_blank" rel="noreferrer">{t.footer.nav}</a>
+        </p>
       </footer>
     </div>
   );
+}
+
+function Icon({ kind }: { kind: string }) {
+  switch (kind) {
+    case "rocket":
+      return <svg viewBox="0 0 24 24"><path d="M5 19l4-1 10-10a5 5 0 0 0-7-7L2 11l-1 4 4 4Z"/><path d="M10 14l-4 4"/></svg>;
+    case "pulse":
+      return <svg viewBox="0 0 24 24"><path d="M3 12h4l2-4 4 8 2-4h6"/></svg>;
+    case "languages":
+      return <svg viewBox="0 0 24 24"><path d="M3 6h8"/><path d="M7 4v2a8 8 0 0 1-4 7"/><path d="M5 11l4 5"/><path d="M14 6h7"/><path d="M17 6v12"/><path d="M14 14h6"/></svg>;
+    case "users":
+      return <svg viewBox="0 0 24 24"><circle cx="9" cy="8" r="3"/><path d="M3 19a6 6 0 0 1 12 0"/><circle cx="18" cy="9" r="2"/><path d="M15 19a5 5 0 0 1 6 0"/></svg>;
+    case "gauge":
+      return <svg viewBox="0 0 24 24"><path d="M4 14a8 8 0 1 1 16 0"/><path d="M12 14l4-4"/></svg>;
+    case "shield":
+      return <svg viewBox="0 0 24 24"><path d="M12 3l8 3v6c0 5-3.5 8-8 9-4.5-1-8-4-8-9V6l8-3Z"/><path d="m9 12 2 2 4-4"/></svg>;
+    case "tool":
+      return <svg viewBox="0 0 24 24"><path d="M14 7l3-3 3 3-3 3"/><path d="M4 20l8-8"/><path d="M7 7l10 10"/></svg>;
+    case "sparkles":
+      return <svg viewBox="0 0 24 24"><path d="M12 3l1.5 4.5L18 9l-4.5 1.5L12 15l-1.5-4.5L6 9l4.5-1.5L12 3Z"/><path d="M5 17l.8 2.2L8 20l-2.2.8L5 23l-.8-2.2L2 20l2.2-.8L5 17Z"/></svg>;
+    case "settings":
+      return <svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="3"/><path d="M19.4 15a1 1 0 0 0 .2 1.1l.1.1a2 2 0 1 1-2.8 2.8l-.1-.1a1 1 0 0 0-1.1-.2 1 1 0 0 0-.6.9V20a2 2 0 1 1-4 0v-.2a1 1 0 0 0-.6-.9 1 1 0 0 0-1.1.2l-.1.1a2 2 0 1 1-2.8-2.8l.1-.1a1 1 0 0 0 .2-1.1 1 1 0 0 0-.9-.6H4a2 2 0 1 1 0-4h.2a1 1 0 0 0 .9-.6 1 1 0 0 0-.2-1.1l-.1-.1a2 2 0 1 1 2.8-2.8l.1.1a1 1 0 0 0 1.1.2 1 1 0 0 0 .6-.9V4a2 2 0 1 1 4 0v.2a1 1 0 0 0 .6.9 1 1 0 0 0 1.1-.2l.1-.1a2 2 0 1 1 2.8 2.8l-.1.1a1 1 0 0 0-.2 1.1 1 1 0 0 0 .9.6h.2a2 2 0 1 1 0 4h-.2a1 1 0 0 0-.9.6Z"/></svg>;
+    case "desktop":
+      return <svg viewBox="0 0 24 24"><rect x="3" y="4" width="18" height="12" rx="2"/><path d="M8 20h8"/><path d="M12 16v4"/></svg>;
+    default:
+      return <svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="8"/></svg>;
+  }
 }
 
 export default App;

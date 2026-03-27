@@ -5,7 +5,6 @@ export interface SiteContent {
   pageTitle: string;
   nav: {
     features: string;
-    screenshots: string;
     download: string;
     faq: string;
     github: string;
@@ -22,16 +21,8 @@ export interface SiteContent {
     secondary: string;
     note: string;
   };
-  highlights: Array<{ label: string; value: string }>;
-  featureSection: {
-    badge: string;
-    title: string;
-    cards: Array<{ title: string; desc: string }>;
-  };
+  highlights: Array<{ icon: string; label: string; value: string }>;
   screenshotSection: {
-    badge: string;
-    title: string;
-    subtitle: string;
     previous: string;
     next: string;
     slides: Array<{
@@ -40,6 +31,11 @@ export interface SiteContent {
       tags: string[];
       points: string[];
     }>;
+  };
+  featureSection: {
+    badge: string;
+    title: string;
+    cards: Array<{ icon: string; title: string; desc: string }>;
   };
   downloadSection: {
     badge: string;
@@ -57,18 +53,6 @@ export interface SiteContent {
       desc: string;
       action: string;
     }>;
-  };
-  releaseSection: {
-    badge: string;
-    title: string;
-    subtitle: string;
-    latestLabel: string;
-    items: Array<{
-      version: string;
-      date: string;
-      summary: string;
-    }>;
-    action: string;
   };
   techSection: {
     badge: string;
@@ -88,7 +72,13 @@ export interface SiteContent {
     primary: string;
     secondary: string;
   };
-  footer: string;
+  footer: {
+    copyright: string;
+    linksLabel: string;
+    project: string;
+    home: string;
+    nav: string;
+  };
 }
 
 export const content: Record<Locale, SiteContent> = {
@@ -97,7 +87,6 @@ export const content: Record<Locale, SiteContent> = {
     pageTitle: "Envra 官网 | 下载与安装",
     nav: {
       features: "产品能力",
-      screenshots: "功能截图",
       download: "下载",
       faq: "常见问题",
       github: "GitHub",
@@ -112,49 +101,16 @@ export const content: Record<Locale, SiteContent> = {
       subtitle:
         "Envra 面向实际开发场景，提供环境诊断、工具管理、项目初始化和偏好设置，让新机器和新成员更快进入可工作状态。",
       primary: "立即下载",
-      secondary: "查看版本日志",
+      secondary: "查看 GitHub",
       note: "支持 macOS / Linux / Windows，当前版本 v0.1.5",
     },
     highlights: [
-      { label: "开箱页面", value: "5 大模块" },
-      { label: "环境检查", value: "8 项核心诊断" },
-      { label: "界面体验", value: "中英双语 + 主题切换" },
-      { label: "定位", value: "面向下载使用者" },
+      { icon: "rocket", label: "开箱页面", value: "5 大模块" },
+      { icon: "pulse", label: "环境检查", value: "8 项核心诊断" },
+      { icon: "languages", label: "界面体验", value: "中英双语 + 主题切换" },
+      { icon: "users", label: "定位", value: "面向下载安装用户" },
     ],
-    featureSection: {
-      badge: "产品能力",
-      title: "安装后就能直接带来效率提升的核心功能",
-      cards: [
-        {
-          title: "环境健康概览",
-          desc: "用仪表盘快速看到机器状态、问题数量与关键入口，减少排查盲区。",
-        },
-        {
-          title: "Environment Doctor",
-          desc: "扫描 Node / npm / pnpm / yarn / Git / SSH / Git 配置，并支持可修复项一键处理。",
-        },
-        {
-          title: "工具管理",
-          desc: "已安装与可安装工具分区展示，统一进行安装、更新、卸载操作。",
-        },
-        {
-          title: "项目初始化",
-          desc: "快速创建 React TS、Vue TS、Next.js、Node TS 项目，减少重复脚手架流程。",
-        },
-        {
-          title: "偏好设置持久化",
-          desc: "主题、语言、镜像源、安装路径、代理等设置持久保存，下次打开延续使用习惯。",
-        },
-        {
-          title: "跨平台桌面应用",
-          desc: "采用 Tauri 架构，提供接近原生的资源占用与启动体验。",
-        },
-      ],
-    },
     screenshotSection: {
-      badge: "功能截图",
-      title: "核心流程一屏可见",
-      subtitle: "轮播展示 Envra 的主要工作界面与信息结构。",
       previous: "上一张",
       next: "下一张",
       slides: [
@@ -200,6 +156,42 @@ export const content: Record<Locale, SiteContent> = {
         },
       ],
     },
+    featureSection: {
+      badge: "产品能力",
+      title: "安装后就能直接提升效率的核心功能",
+      cards: [
+        {
+          icon: "gauge",
+          title: "环境健康概览",
+          desc: "仪表盘快速看到机器状态、问题数量与关键入口。",
+        },
+        {
+          icon: "shield",
+          title: "Environment Doctor",
+          desc: "扫描 Node/npm/pnpm/yarn/Git/SSH/Git 配置并支持可修复项。",
+        },
+        {
+          icon: "tool",
+          title: "工具管理",
+          desc: "已安装与可安装工具分区展示，统一安装/更新/卸载。",
+        },
+        {
+          icon: "sparkles",
+          title: "项目初始化",
+          desc: "快速创建 React TS、Vue TS、Next.js、Node TS 项目。",
+        },
+        {
+          icon: "settings",
+          title: "偏好设置持久化",
+          desc: "主题、语言、镜像源、安装路径、代理等设置持久保存。",
+        },
+        {
+          icon: "desktop",
+          title: "跨平台桌面应用",
+          desc: "Tauri 架构带来更轻量的资源占用和更快的启动体验。",
+        },
+      ],
+    },
     downloadSection: {
       badge: "下载与安装",
       title: "按你的系统直接下载安装",
@@ -236,20 +228,6 @@ export const content: Record<Locale, SiteContent> = {
         },
       ],
     },
-    releaseSection: {
-      badge: "版本日志入口",
-      title: "更新内容透明可查",
-      subtitle: "保持升级可预期，部署和团队同步更安心。",
-      latestLabel: "最新",
-      items: [
-        {
-          version: "v0.1.5",
-          date: "2026-03",
-          summary: "当前官网对应版本，包含完整核心页面与双语/主题能力。",
-        },
-      ],
-      action: "查看完整版本记录",
-    },
     techSection: {
       badge: "基础技术",
       title: "工程基础清晰，性能体验更友好",
@@ -270,25 +248,17 @@ export const content: Record<Locale, SiteContent> = {
         },
         {
           title: "可持续迭代",
-          desc: "TypeScript 与模块化结构提升可维护性，方便后续增加真实系统检测能力。",
+          desc: "TypeScript 与模块化结构提升可维护性，后续扩展成本更低。",
         },
       ],
     },
     faqSection: {
       badge: "FAQ",
-      title: "下载安装前后常见问题",
+      title: "常见问题",
       items: [
-        {
-          q: "Envra 适合谁使用？",
-          a: "适合个人开发者、小团队和新成员入职场景，用于快速搭建与诊断本地开发环境。",
-        },
         {
           q: "必须从源码运行吗？",
           a: "不需要。官网定位是下载安装直接使用，推荐从 Releases 下载对应系统安装包。",
-        },
-        {
-          q: "现在数据都是真实的吗？",
-          a: "当前版本仍有部分页面使用演示数据，但核心结构与操作流程已可体验。",
         },
         {
           q: "是否支持中英文和主题切换？",
@@ -306,14 +276,19 @@ export const content: Record<Locale, SiteContent> = {
       primary: "下载最新版本",
       secondary: "查看 GitHub 项目",
     },
-    footer: "© 2026 Envra. Made for Developers Who Ship.",
+    footer: {
+      copyright: "Copyright © 2026 lengziyu.cn. All rights reserved.",
+      linksLabel: "外链",
+      project: "项目 GitHub",
+      home: "lengziyu.cn",
+      nav: "nav.lengziyu.cn",
+    },
   },
   en: {
     htmlLang: "en",
     pageTitle: "Envra Official Site | Download & Install",
     nav: {
       features: "Features",
-      screenshots: "Screenshots",
       download: "Download",
       faq: "FAQ",
       github: "GitHub",
@@ -328,49 +303,16 @@ export const content: Record<Locale, SiteContent> = {
       subtitle:
         "Envra focuses on practical local setup workflows: diagnostics, tool management, project scaffolding, and persistent preferences for daily development.",
       primary: "Download Now",
-      secondary: "View Release Notes",
+      secondary: "View GitHub",
       note: "Available on macOS / Linux / Windows, current version v0.1.5",
     },
     highlights: [
-      { label: "Built-in Areas", value: "5 modules" },
-      { label: "Health Checks", value: "8 core checks" },
-      { label: "UX", value: "Bilingual + Theme Switch" },
-      { label: "Positioning", value: "Built for end users" },
+      { icon: "rocket", label: "Built-in Areas", value: "5 modules" },
+      { icon: "pulse", label: "Health Checks", value: "8 core checks" },
+      { icon: "languages", label: "UX", value: "Bilingual + Theme Switch" },
+      { icon: "users", label: "Positioning", value: "Built for end users" },
     ],
-    featureSection: {
-      badge: "Core Product Value",
-      title: "What improves your workflow right after installation",
-      cards: [
-        {
-          title: "Environment Overview",
-          desc: "A clear dashboard for health score, pending issues, and key action entry points.",
-        },
-        {
-          title: "Environment Doctor",
-          desc: "Scans Node/npm/pnpm/yarn/Git/SSH/Git config and supports one-click fixes where available.",
-        },
-        {
-          title: "Tool Manager",
-          desc: "Manages installed and available tools with unified install/update/uninstall operations.",
-        },
-        {
-          title: "Project Init",
-          desc: "Scaffold React TS, Vue TS, Next.js, or Node TS projects with standard setup options.",
-        },
-        {
-          title: "Persistent Settings",
-          desc: "Theme, language, registry mirror, install path, and proxy preferences are preserved.",
-        },
-        {
-          title: "Cross-platform Desktop",
-          desc: "Tauri-based architecture provides a desktop experience with efficient resource usage.",
-        },
-      ],
-    },
     screenshotSection: {
-      badge: "Screenshots",
-      title: "Main workflows at a glance",
-      subtitle: "Carousel preview of Envra's core product interfaces.",
       previous: "Previous",
       next: "Next",
       slides: [
@@ -416,6 +358,42 @@ export const content: Record<Locale, SiteContent> = {
         },
       ],
     },
+    featureSection: {
+      badge: "Features",
+      title: "Core capabilities that improve workflow after install",
+      cards: [
+        {
+          icon: "gauge",
+          title: "Environment Overview",
+          desc: "A clear dashboard for machine status, issue count, and quick actions.",
+        },
+        {
+          icon: "shield",
+          title: "Environment Doctor",
+          desc: "Scans Node/npm/pnpm/yarn/Git/SSH/Git config with one-click fixes where available.",
+        },
+        {
+          icon: "tool",
+          title: "Tool Manager",
+          desc: "Installed/available tool split with unified install/update/uninstall actions.",
+        },
+        {
+          icon: "sparkles",
+          title: "Project Init",
+          desc: "Scaffold React TS, Vue TS, Next.js, and Node TS projects quickly.",
+        },
+        {
+          icon: "settings",
+          title: "Persistent Preferences",
+          desc: "Theme, language, registry mirror, install path, and proxy are saved.",
+        },
+        {
+          icon: "desktop",
+          title: "Cross-platform Desktop",
+          desc: "Tauri architecture brings lightweight runtime and fast startup behavior.",
+        },
+      ],
+    },
     downloadSection: {
       badge: "Download",
       title: "Get the right package for your platform",
@@ -425,7 +403,7 @@ export const content: Record<Locale, SiteContent> = {
       cards: [
         {
           platform: "macOS",
-          desc: "For Apple Silicon and Intel devices, with a desktop installation package.",
+          desc: "For Apple Silicon and Intel devices, with desktop installer package.",
           action: "Download for macOS",
         },
         {
@@ -452,24 +430,10 @@ export const content: Record<Locale, SiteContent> = {
         },
       ],
     },
-    releaseSection: {
-      badge: "Release Log Entry",
-      title: "Transparent updates for reliable upgrades",
-      subtitle: "See what's changed before you deploy to your team.",
-      latestLabel: "Latest",
-      items: [
-        {
-          version: "v0.1.5",
-          date: "2026-03",
-          summary: "Current website-aligned release with core pages and bilingual/theme support.",
-        },
-      ],
-      action: "View Full Changelog",
-    },
     techSection: {
       badge: "Technology",
       title: "Solid foundations with user-facing performance benefits",
-      subtitle: "The stack is chosen to improve install and runtime experience, not to expose complex source workflows.",
+      subtitle: "The stack is chosen to improve install and runtime experience.",
       stacks: ["Tauri 2", "React 19", "Vite 7", "TypeScript", "Zustand"],
       advantages: [
         {
@@ -478,7 +442,7 @@ export const content: Record<Locale, SiteContent> = {
         },
         {
           title: "Fast startup and interaction",
-          desc: "React + Vite keeps UI rendering and page transitions responsive for daily use.",
+          desc: "React + Vite keeps UI rendering and page transitions responsive.",
         },
         {
           title: "Unified multi-platform delivery",
@@ -492,19 +456,11 @@ export const content: Record<Locale, SiteContent> = {
     },
     faqSection: {
       badge: "FAQ",
-      title: "Common questions before and after installation",
+      title: "Common questions",
       items: [
         {
-          q: "Who is Envra for?",
-          a: "Individual developers and small teams who want a faster and more reliable local environment setup flow.",
-        },
-        {
           q: "Do I need to run the source code?",
-          a: "No. This site is focused on end-user download and installation through release packages.",
-        },
-        {
-          q: "Is all data fully live right now?",
-          a: "Some sections are still using demo/mock data in the current stage, while the core structure is available.",
+          a: "No. This site focuses on end-user download and installation through release packages.",
         },
         {
           q: "Are language and theme switches supported?",
@@ -522,6 +478,12 @@ export const content: Record<Locale, SiteContent> = {
       primary: "Download Latest",
       secondary: "Open GitHub Repository",
     },
-    footer: "© 2026 Envra. Made for Developers Who Ship.",
+    footer: {
+      copyright: "Copyright © 2026 lengziyu.cn. All rights reserved.",
+      linksLabel: "Links",
+      project: "Project GitHub",
+      home: "lengziyu.cn",
+      nav: "nav.lengziyu.cn",
+    },
   },
 };
