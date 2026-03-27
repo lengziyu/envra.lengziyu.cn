@@ -94,9 +94,9 @@ export const content: Record<Locale, SiteContent> = {
     },
     hero: {
       badge: "Envra · 桌面开发环境管理工具",
-      title: "下载安装后即可使用的开发环境助手。",
+      title: "ENVRA",
       subtitle:
-        "Envra 面向实际开发场景，提供环境诊断、工具管理、项目初始化和偏好设置，让新机器和新成员更快进入可工作状态。",
+        "桌面开发环境管理工具。聚焦环境诊断、工具管理与项目初始化，让新机器快速进入可开发状态。",
       primary: "立即下载",
       secondary: "查看 GitHub",
       note: "支持 macOS / Linux / Windows，当前版本 v0.1.5",
@@ -110,9 +110,9 @@ export const content: Record<Locale, SiteContent> = {
     screenshotSection: {
       slides: [
         {
-          title: "Dashboard",
+          title: "总览面板",
           caption: "查看健康分、待处理问题与快捷入口。",
-          tags: ["Health Score", "Quick Actions", "System Info"],
+          tags: ["健康分", "快捷操作", "系统信息"],
           points: [
             "集中展示环境风险与优先级",
             "一键跳转诊断和工具管理",
@@ -120,9 +120,9 @@ export const content: Record<Locale, SiteContent> = {
           ],
         },
         {
-          title: "Environment Doctor",
+          title: "环境医生",
           caption: "诊断并修复本地开发环境常见问题。",
-          tags: ["Scan", "Fix", "Runtime Checks"],
+          tags: ["扫描", "修复", "环境检查"],
           points: [
             "分类查看 runtime / package / git 等状态",
             "支持 pnpm 与 yarn 缺失修复",
@@ -130,9 +130,9 @@ export const content: Record<Locale, SiteContent> = {
           ],
         },
         {
-          title: "Tool Manager",
+          title: "工具管理",
           caption: "按状态管理工具安装与更新。",
-          tags: ["Installed", "Available", "Update"],
+          tags: ["已安装", "可安装", "更新"],
           points: [
             "区分已安装与可安装工具",
             "展示当前版本与可更新状态",
@@ -140,13 +140,23 @@ export const content: Record<Locale, SiteContent> = {
           ],
         },
         {
-          title: "Project Init",
+          title: "项目初始化",
           caption: "新项目创建流程标准化。",
-          tags: ["Templates", "Node Version", "Git Init"],
+          tags: ["模板", "Node 版本", "初始化 Git"],
           points: [
             "提供常用模板快速选择",
             "可选包管理器与 Node 版本",
             "创建后返回项目路径结果",
+          ],
+        },
+        {
+          title: "偏好设置",
+          caption: "将语言、主题与镜像源配置统一管理并持久保存。",
+          tags: ["语言", "主题", "镜像源"],
+          points: [
+            "支持中英界面快速切换",
+            "浅色 / 深色主题一键切换",
+            "镜像源与安装路径可按团队规范配置",
           ],
         },
       ],
@@ -305,9 +315,9 @@ export const content: Record<Locale, SiteContent> = {
     },
     hero: {
       badge: "Envra · Desktop Dev Environment Assistant",
-      title: "Download once and start managing your dev environment immediately.",
+      title: "ENVRA",
       subtitle:
-        "Envra focuses on practical local setup workflows: diagnostics, tool management, project scaffolding, and persistent preferences for daily development.",
+        "A desktop development environment manager focused on diagnostics, tool management, and project scaffolding for faster setup.",
       primary: "Download Now",
       secondary: "View GitHub",
       note: "Available on macOS / Linux / Windows, current version v0.1.5",
@@ -358,6 +368,16 @@ export const content: Record<Locale, SiteContent> = {
             "Quick pick common templates",
             "Choose package manager and Node version",
             "Returns created project path clearly",
+          ],
+        },
+        {
+          title: "Settings",
+          caption: "Manage language, theme, and mirror configuration in one place.",
+          tags: ["Language", "Theme", "Registry Mirror"],
+          points: [
+            "Fast switch between Chinese and English UI",
+            "One-click light and dark theme switching",
+            "Persist mirror source and install path preferences",
           ],
         },
       ],
